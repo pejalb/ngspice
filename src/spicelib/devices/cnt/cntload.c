@@ -577,9 +577,9 @@ next1:     if(vbs <= -3*vt) {
 			QdRange=Range2(Vdsc,q,c,qC,qCN0,xmax,xmin,inte,4);
 			Vsc=Root(Vdsc,q,c,qC,qCN0,QsRange,QdRange);
 printf("%lf %lf %lf %lf\n",VD,VS,VG,Vdsc);
-			//if (Efi<=0.0)
+			if (Efi<=0.0)
 				cdrain=4.0*q*KB*T/h*(log(1.0+exp(q*(EF-Vsc)/KB/T))-log(1.0+exp(q*(EF-Vsc-Vdsc)/KB/T)));
-			//else 
+			else 
 				//cdrain=-4.0*q*KB*T/h*(log(1.0+exp(q*(EF-Vsc)/KB/T))-log(1.0+exp(q*(EF-Vsc-Vdsc)/KB/T)));
 printf("%d %d %lf  %lf\n",QsRange, QdRange, Vsc,cdrain);
 			betap=Beta*(1+model->CNTlambda*(vds*here->CNTmode));
@@ -978,7 +978,7 @@ printf("%d %d %lf  %lf\n",QsRange, QdRange, Vsc,cdrain);
                 cdreq = -(model->CNTtype)*(cdrain-here->CNTgds*(-vds)-
 					    here->CNTgm*vgd-here->CNTgmbs*vbd);
             }
-	//if (Efi<=0.0){
+	if (Efi<=0.0){
             *(ckt->CKTrhs + here->CNTgNode) -= 
                 (model->CNTtype * (ceqgs + ceqgb + ceqgd));
             *(ckt->CKTrhs + here->CNTbNode) -=
@@ -987,18 +987,18 @@ printf("%d %d %lf  %lf\n",QsRange, QdRange, Vsc,cdrain);
 		(ceqbd - cdreq + model->CNTtype * ceqgd);
             *(ckt->CKTrhs + here->CNTsNodePrime) += 
 		(cdreq + ceqbs + model->CNTtype * ceqgs);
-		//}
-	//else {
-            //*(ckt->CKTrhs + here->CNTgNode) -= 
-               // -(model->CNTtype * (ceqgs + ceqgb + ceqgd));
-           // *(ckt->CKTrhs + here->CNTbNode) -=
-          //      -(ceqbs + ceqbd - model->CNTtype * ceqgb);
-           // *(ckt->CKTrhs + here->CNTdNodePrime) +=
-	//	-(ceqbd - cdreq + model->CNTtype * ceqgd);
-           // *(ckt->CKTrhs + here->CNTsNodePrime) += 
-	//	-(cdreq + ceqbs + model->CNTtype * ceqgs);
-		//}
-printf("%lf %lf %lf\n",cdreq, ceqbs, ceqbd);
+		}
+	else {
+            *(ckt->CKTrhs + here->CNTgNode) -= 
+                -(model->CNTtype * (ceqgs + ceqgb + ceqgd));
+            *(ckt->CKTrhs + here->CNTbNode) -=
+                -(ceqbs + ceqbd - model->CNTtype * ceqgb);
+            *(ckt->CKTrhs + here->CNTdNodePrime) +=
+		-(ceqbd - cdreq + model->CNTtype * ceqgd);
+            *(ckt->CKTrhs + here->CNTsNodePrime) += 
+		-(cdreq + ceqbs + model->CNTtype * ceqgs);
+		}
+//printf("%lf %lf %lf\n",cdreq, ceqbs, ceqbd);
             /*
              *  load y matrix
              */
@@ -1120,7 +1120,7 @@ for(i=1;i<=n1;i++)
 							y=n1+1;
 							goto next3;
 							}
-						else if((xmin1+(i+j-2)*inte1)<Root(Vds1,q1,c1,qC1,qCN01,i+j-1,n1) && Root(Vds1,q1,c1,qC1,qCN01,i+j-1,n1)<=(xmin1+(i+j-1)*inte1));   // this ; might be a serious bug !, FIXME !
+						else if((xmin1+(i+j-2)*inte1)<Root(Vds1,q1,c1,qC1,qCN01,i+j-1,n1) && Root(Vds1,q1,c1,qC1,qCN01,i+j-1,n1)<=(xmin1+(i+j-1)*inte1))   // this ; might be a serious bug !, FIXME !
 							{
 							y=i+j-1;
 							goto next3;
@@ -1221,7 +1221,7 @@ for(i=1;i<=n2;i++)
 							y=j;
 							goto next4;
 							}
-						else if((xmin2+(i+j-2)*inte2)<Root(Vds2,q2,c2,qC2,qCN02,i+j-1,n2) && Root(Vds2,q2,c2,qC2,qCN02,i+j-1,n2)<=(xmin2+(i+j-1)*inte2));  // this ; might be a serious bug !, FIXME !
+						else if((xmin2+(i+j-2)*inte2)<Root(Vds2,q2,c2,qC2,qCN02,i+j-1,n2) && Root(Vds2,q2,c2,qC2,qCN02,i+j-1,n2)<=(xmin2+(i+j-1)*inte2))  // this ; might be a serious bug !, FIXME !
 							{
 							y=n2;
 							goto next4;

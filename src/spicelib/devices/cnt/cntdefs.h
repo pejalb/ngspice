@@ -22,8 +22,9 @@ typedef struct sCNTinstance {
     struct sCNTinstance *CNTnextInstance;  /* pointer to next instance of
                                               *current model*/
     IFuid CNTname; /* pointer to character string naming this instance */
-    int CNTowner;  /* number of owner process */
+    //int CNTowner;  /* number of owner process */
     int CNTstates;     /* index into state table for this device */
+
 
     int CNTdNode;  /* number of the gate node of the cntfet */
     int CNTgNode;  /* number of the gate node of the cntfet */
