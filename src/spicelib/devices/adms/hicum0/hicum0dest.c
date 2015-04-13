@@ -1,0 +1,32 @@
+/***
+*** Interface: ngspice 1.0.0.0
+ *** created by: admsXml-2.3.4 - Mon, 13 Apr 2015 14:12:40 ***/
+
+
+#include "ngspice/ngspice.h"
+#include "hicum0defs.h"
+#include "ngspice/suffix.h"
+
+void hicum0destroy(GENmodel **inModel)
+
+{
+  register hicum0model **model = (hicum0model**)inModel;
+  register hicum0instance *here;
+  hicum0instance *prev = NULL;
+  hicum0model *mod = *model;
+  hicum0model *oldmod = NULL;
+  
+  for ( ; mod ; mod = mod->hicum0nextModel ) {
+      if (oldmod) FREE(oldmod);
+      oldmod = mod;
+      prev = (hicum0instance *)NULL;  
+      for (here = mod->hicum0instances; here ; here = here->hicum0nextInstance) {
+          if(prev) FREE(prev);
+	  prev = here;
+	  }
+          if(prev) FREE(prev);
+    } 
+    if(oldmod) FREE(oldmod);
+    *model = NULL;
+  return;
+}

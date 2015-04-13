@@ -1344,10 +1344,13 @@ else
 //		realy1=-2.0*sqrt(fabs(p)/3.0)*cos((fai+pi)/3.0)-r;
 /***********************/
 /* FRA - New Code */
-		realy2=-2.0*sqrt(fabs(p)/3.0)*cos((fai+pi)/3.0)-r;
-		realy3=-2.0*sqrt(fabs(p)/3.0)*cos((fai+pi)/3.0)-r;
+//		realy2=-2.0*sqrt(fabs(p)/3.0)*cos((fai+pi)/3.0)-r;
+//		realy3=-2.0*sqrt(fabs(p)/3.0)*cos((fai+pi)/3.0)-r;
 /***********************/
-
+/* Pedro - New Code */
+                realy2=-2.0*sqrt(fabs(p)/3.0)*cos((fai+pi)/3.0)-r;
+                realy3=-2.0*sqrt(fabs(p)/3.0)*cos((fai-pi)/3.0)-r;//fai-pi if the model is to agree with the vhdl-ams version
+/***********************/
 		imagy1=0.0;
 		imagy2=0.0;
 		imagy3=0.0;
